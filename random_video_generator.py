@@ -1,9 +1,9 @@
 from youtube_api import YouTubeDataAPI
 from random_yt_gen import db
 from random_yt_gen.db_models import YTVidID
+from sqlalchemy.exc import IntegrityError
 
 import os
-import sqlite3
 import random
 
 # Word generation functions
@@ -60,7 +60,7 @@ class RandomVideoCrawler:
         for video in video_sample:
             try:
                 db.session.add(YTVidID(video['video_id']))
-            except: # not unique
+            except IntegrityError: # not unique
                 continue
         db.session.commit()
     
