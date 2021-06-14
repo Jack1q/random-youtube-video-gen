@@ -60,9 +60,10 @@ class RandomVideoCrawler:
         for video in video_sample:
             try:
                 db.session.add(YTVidID(video['video_id']))
+                db.session.commit()
             except IntegrityError: # not unique
+                db.session.rollback()
                 continue
-        db.session.commit()
     
     # Returns all stored ids as a list of strings
     def read_ids(self):
