@@ -50,7 +50,7 @@ class RandomVideoCrawler:
         while True:
             try:
                 randomized_sequence = RandomWordGenerator().get_random_sequence_of_words()
-                return self.yt_api.search(q=randomized_sequence, max_results=20) # higher max = longer wait, but greater randomization
+                return self.yt_api.search(q=randomized_sequence, max_results=70) # higher max = longer wait, but greater randomization
             except:
                 continue
         
