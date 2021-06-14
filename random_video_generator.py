@@ -57,9 +57,11 @@ class RandomVideoCrawler:
     # Grabs sample of videos ids, stores them all into table
     def store_video_ids(self):
         video_sample = self.collect_video_sample_data()
-        found = [YTVidID(video['video_id']) for video in video_sample]
-        print(found)
-        db.session.add_all(found)
+        for video in video_sample:
+            try:
+                db.session.add(YTVidID(video['video_id']))
+            except: # not unique
+                continue
         db.session.commit()
     
     # Returns all stored ids as a list of strings
